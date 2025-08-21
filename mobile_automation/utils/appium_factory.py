@@ -5,22 +5,22 @@ from mobile_automation.config import config as cfg
 
 def build_android_caps():
     caps = {
-        "platformName": "Android",
-        "automationName": "UiAutomator2",
-        "deviceName": cfg.ANDROID_DEVICE_NAME,
-        "newCommandTimeout": cfg.NEW_COMMAND_TIMEOUT,
-        "autoGrantPermissions": cfg.AUTO_GRANT_PERMISSIONS,
+        "platformName": "Android",                 # Specify platform as Android
+        "automationName": "UiAutomator2",          # Use UiAutomator2 for Android automation
+        "deviceName": cfg.ANDROID_DEVICE_NAME,     # Your LDPlayer device name
+        "newCommandTimeout": cfg.NEW_COMMAND_TIMEOUT,  # Timeout for commands
+        "autoGrantPermissions": cfg.AUTO_GRANT_PERMISSIONS,  # Auto grant permissions if necessary
     }
 
     if cfg.ANDROID_PLATFORM_VER:
         caps["platformVersion"] = cfg.ANDROID_PLATFORM_VER
 
-    # Prefer launching installed app via package/activity (fast)
+    # Launch the installed app via package/activity
     if cfg.ANDROID_APP_PACKAGE and cfg.ANDROID_APP_ACTIVITY:
-        caps["appPackage"] = cfg.ANDROID_APP_PACKAGE
-        caps["appActivity"] = cfg.ANDROID_APP_ACTIVITY
+        caps["appPackage"] = cfg.ANDROID_APP_PACKAGE        # The package name of your app (eWork)
+        caps["appActivity"] = cfg.ANDROID_APP_ACTIVITY      # The main activity of the app
 
-    # Remove any browser-related capabilities like `browserName` and `goog:chromeOptions`
+    # Ensure that browserName and goog:chromeOptions are NOT set anywhere (if accidentally set)
     if "browserName" in caps:
         del caps["browserName"]
 
